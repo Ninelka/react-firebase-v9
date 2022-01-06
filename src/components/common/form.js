@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import Button from "./button";
 
 export default function BasicTextFields() {
     return (
@@ -22,6 +23,8 @@ export default function BasicTextFields() {
                 <TextField id="outlined-basic" label="Outlined" variant="outlined" />
                 <TextField id="password" label="Enter the Password" variant="outlined" />
             </Box>
+
+            <Button />
         </div>
     );
 }
