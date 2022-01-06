@@ -22,6 +22,14 @@ function App() {
     const handleAction = (id) => {
         const authentication = getAuth();
 
+        if (id === 1) {
+            signInWithEmailAndPassword(authentication, email, password)
+                .then((response) => {
+                    navigate('/home')
+                    sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+                })
+        }
+
         if (id === 2) {
             createUserWithEmailAndPassword(authentication, email, password)
                 .then((response) => {
