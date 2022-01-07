@@ -1,7 +1,7 @@
 import './App.css';
 import Form from './components/common/form';
 import Home from "./components/home";
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import {Routes, Route, useNavigate, Navigate} from 'react-router-dom';
 import {app} from './firebase-config';
 import {getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword} from 'firebase/auth';
 import {useEffect, useState} from 'react';
@@ -72,6 +72,10 @@ function App() {
             <>
                 <ToastContainer/>
                 <Routes>
+                    <Route
+                        path="*"
+                        element={<Navigate to="/login"/>}
+                    />
                     <Route path='/login'
                            element={<Form title="Login" setEmail={setEmail} setPassword={setPassword}
                                           handleAction={() => handleAction(1)}/>}/>
