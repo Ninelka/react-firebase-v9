@@ -30,12 +30,19 @@ function App() {
                     navigate('/home')
                     sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
                 })
+                .then(() => {
+                    toast.success('Successful login');
+                })
                 .catch((error) => {
+                    console.log(error)
                     if (error.code === 'auth/wrong-password') {
                         toast.error('Please check the Password');
                     }
                     if (error.code === 'auth/user-not-found') {
                         toast.error('Please check the Email');
+                    }
+                    if (error.code === 'auth/invalid-email') {
+                        toast.error('Please fill the Form');
                     }
                 })
         }
