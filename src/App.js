@@ -6,6 +6,7 @@ import {getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, Goo
 import {useEffect, useState} from 'react';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {app} from "./firebase-config";
 
 function App() {
     const [email, setEmail] = useState('');
@@ -22,7 +23,7 @@ function App() {
     }, [navigate])
 
     const handleAction = (id) => {
-        const authentication = getAuth();
+        const authentication = getAuth(app);
 
         if (id === 1) {
             signInWithEmailAndPassword(authentication, email, password)
