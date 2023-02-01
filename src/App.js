@@ -2,8 +2,7 @@ import './App.css';
 import Form from './components/common/form';
 import Home from "./components/home";
 import {Routes, Route, useNavigate, Navigate} from 'react-router-dom';
-import {app} from './firebase-config';
-import {getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword} from 'firebase/auth';
+import {getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
 import {useEffect, useState} from 'react';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,6 +11,7 @@ function App() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const googleProvider = new GoogleAuthProvider();
 
     useEffect(() => {
         let authToken = sessionStorage.getItem('Auth Token')
@@ -19,7 +19,7 @@ function App() {
         if (authToken) {
             navigate('/home')
         }
-    }, [])
+    }, [navigate])
 
     const handleAction = (id) => {
         const authentication = getAuth();
@@ -65,6 +65,17 @@ function App() {
                     }
                 })
         }
+
+        if (id === 3) {
+            signInWithPopup(authentication, googleProvider)
+                .then((response) => {
+                    navigate('/home');
+                    sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+                })
+                .catch((error) => {
+                    toast.error(error)
+                })
+        }
     }
 
     return (
@@ -78,7 +89,7 @@ function App() {
                     />
                     <Route path='/login'
                            element={<Form title="Login" setEmail={setEmail} setPassword={setPassword}
-                                          handleAction={() => handleAction(1)}/>}/>
+                                          handleAction={() => handleAction(1)} googleHandleAction={() => handleAction(3)}/>}/>
                     <Route path='/register'
                            element={<Form title="Register" setEmail={setEmail}
                                           setPassword={setPassword} handleAction={() => handleAction(2)}/>}/>

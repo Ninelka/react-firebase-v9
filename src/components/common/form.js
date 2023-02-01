@@ -6,7 +6,7 @@ import Button from "./button";
 import {CardContent, CardActions, Fab} from "@mui/material";
 import {Link} from "react-router-dom";
 
-export default function BasicTextFields({title, setPassword, setEmail, handleAction}) {
+export default function BasicTextFields({title, setPassword, setEmail, handleAction, googleHandleAction}) {
     return (
         <Box sx={{
             height: "100vh",
@@ -37,6 +37,7 @@ export default function BasicTextFields({title, setPassword, setEmail, handleAct
                 </CardContent>
                 <CardActions sx={{position: "relative"}}>
                     <Button title={title} handleAction={handleAction}/>
+                    {title === 'Login' && <Button title="Login with Google" handleAction={googleHandleAction}/>}
                     <Link to={title === 'Login' ? '/register' : '/login'}>
                         <Fab variant="extended" sx={{position: "absolute", right: "8px", bottom: "8px"}}
                              color="secondary" aria-label="add">
